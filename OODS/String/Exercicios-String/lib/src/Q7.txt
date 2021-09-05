@@ -1,0 +1,10 @@
+Como a classe "String" foi feita para ser imutável, qualquer alteração feita nela após sua criação resultará 
+em um novo objeto.
+
+Ex.: String x = "teste";
+     x.toUpperCase();       <- Retorna um novo objeto com o resultado do méto toUpperCase, logo o valor de x não será alterado
+
+Com o StringBuilder essa imutabilidade deixa de existir, então qualquer alteração feita no objeto refletirá nele mesmo
+
+Ex.: StringBuilder y = new StringBuilder();
+     y.append("teste".toUpperCase());    <- Agora o valor de teste maiúsculo estará dentro de y
