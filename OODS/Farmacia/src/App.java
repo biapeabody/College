@@ -13,10 +13,10 @@ public class App {
         
         Boolean isUserActive = true;
         
-        for (int i = 0; i < 50; ++i) System.out.println (); // Limpa a tela
-        System.out.println("Farmácia UPE Caruaru 2021!!!\n");
-
         while (isUserActive) {
+            for (int i = 0; i < 50; ++i) System.out.println (); // Limpa a tela
+            
+            System.out.println("Farmácia UPE Caruaru 2021!!!\n");
             
             System.out.println("\n1- Ver produtos    2- Adicionar ao carrinho    3- Ver carrinho    4- Sair\n");
             
@@ -26,22 +26,14 @@ public class App {
             if(option == 1) {
                 for (int i = 0; i < 50; ++i) System.out.println (); // Limpa a tela
 
-                System.out.println("\n1 - Medicamentos    2 - Cosméticos");
-
-                System.out.print("Opção: ");
-                int option2 = sc.nextInt();
-                
-                if (option2 == 1) {
-                    utilsFunctions.showMedicamentos();
-                }
-                else if (option2 == 2){
-                    utilsFunctions.showCosmeticos();
-                }
+                utilsFunctions.showProducts();
             }
             else if(option == 2) {
                 for (int i = 0; i < 50; ++i) System.out.println (); // Limpa a tela
 
-                System.out.print("Digite o id do produto que deseja comprar: ");
+                utilsFunctions.showAllProducts();
+
+                System.out.print("\nDigite o id do produto que deseja comprar: ");
                 int productId = sc.nextInt();
                 
                 System.out.print("Quantos produtos: ");
