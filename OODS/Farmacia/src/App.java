@@ -1,5 +1,4 @@
 import java.util.*;
-
 import utils.Utils;
 
 public class App {
@@ -8,9 +7,7 @@ public class App {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         Utils utilsFunctions = new Utils();
-        
         utilsFunctions.createProducts();
-        
         Boolean isUserActive = true;
         
         while (isUserActive) {
