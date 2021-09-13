@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.*;
+
 import produtos.*;
 import produtos.medicamentos.*;
 import produtos.cosmeticos.*;
@@ -278,7 +279,17 @@ public class Utils  {
             this.removeFromCart();
         }
         else if(option == 3) {
-            this.payProducts();
+        
+            System.out.println("1- Dinheiro   2- Cartão");
+            System.out.printf("Digite a opção: ");
+            int opc = sc.nextInt();
+
+            if (opc == 1) {
+                this.payProductsMoney();
+            }else if (opc == 2){
+                this.payProductsCard();
+            }
+            
         }
     }
     
@@ -309,7 +320,7 @@ public class Utils  {
         }
     }
     
-    private void payProducts() {
+    private void payProductsMoney() {
         for (int i = 0; i < 50; ++i) System.out.println (); // Limpa a tela
         
         System.out.print("Digite seu nome: ");
@@ -329,7 +340,7 @@ public class Utils  {
             System.out.printf("Valor total: R$ %.2f", this.totalValue());
             System.out.println("\n------------------------------");
             
-            System.out.print("Digite o falor a ser pago: R$ ");
+            System.out.print("Digite o valor a ser pago: R$ ");
             double value = sc.nextDouble();
             
             if (value < this.totalValue()) {
@@ -372,6 +383,54 @@ public class Utils  {
             sc.next();
         }
     }
+
+    public void payProductsCard(){
+
+        for (int i = 0; i < 50; ++i) System.out.println (); // Limpa a tela
+        
+        System.out.print("Digite seu nome: ");
+        String clienteName = sc.next();
+        System.out.print("Digite seu cpf: ");
+        String cpf = sc.next();
+
+        Cliente cliente = new Cliente(clienteName, cpf);
+
+        if(cliente.verifyClientData()) {
+            for(int i = 0; i < carrinho.size() ; i++) {
+                System.out.printf("%dº- %s R$ %.2f - Qtd %d\n", i + 1, carrinho.get(i).getName(), carrinho.get(i).getPricePosDiscount(), carrinho.get(i).getQuantity());
+            }
+            System.out.println("------------------------------");
+            System.out.printf("Valor total: R$ %.2f", this.totalValue());
+            System.out.println("\n------------------------------");
+            
+            System.out.println("Número do cartão: ");
+            String numberCard = sc.next();
+            System.out.println("Código de Segurança: ");
+            String codSecurity = sc.next();
+            System.out.println("Data validade (MM/AA): ");
+            String date = sc.next();
+
+            if (testConnection()){
+
+                if (numberCard.length() == 16 && codSecurity.length() == 3 && date.length() == 5){
+                    System.out.println("Muito obrigado pela compra!!!");
+                    carrinho.clear();
+                    System.out.print("\nDigite algo para continuar...");
+                    sc.next();
+                }else{
+                System.out.println("Dados do cartão inválidos");
+                System.out.print("\nDigite algo para tentar novamente...");
+                sc.next();
+                }
+                
+            }else{
+                System.out.println("Erro de conexão na transação!");
+                System.out.print("\nDigite algo para tentar novamente...");
+                sc.next();
+            }
+        }
+        
+    }
     
     public void showProducts() {
         System.out.println("\n1 - Medicamentos    2 - Cosméticos");
@@ -391,6 +450,17 @@ public class Utils  {
         for(Produto produto : listaDeProdutos) {
             System.out.printf("%d: %s - Em estoque %d - R$ %.2f\n", produto.getId(), produto.getName(), produto.getEstoque(), produto.getPreco());
         }
+    }
+
+    public boolean testConnection(){
+        Random random = new Random();
+
+        int connection = random.nextInt(100);
+
+        if (connection >= 90 && connection <= 100) {
+            return false;
+        }else 
+        return true;
     }
     
 }
