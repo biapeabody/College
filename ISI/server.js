@@ -139,7 +139,12 @@ http
       }
     } catch (error) {
       console.log(error);
-      res.end();
+      res.writeHead(500);
+      res.end(
+        JSON.stringify({
+          Error: "Erro interno do servidor",
+        })
+      );
     }
   })
   .listen(8080);
